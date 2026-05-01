@@ -1,0 +1,16 @@
+Diagram:
+https://imgur.com/a/9ePFNsS
+
+Explanation:
+This infrastructure uses three servers to host www.foobar.com. A user accesses the website through the domain name, which resolves to the load balancer. The load balancer then distributes incoming requests between two application servers.
+
+The load balancer is HAProxy. It improves availability and distributes traffic across the two servers so that one server does not handle all requests alone. A common distribution algorithm is Round Robin, where each incoming request is sent to the next server in order.
+
+This setup is Active-Active because both web servers are receiving traffic at the same time. In Active-Passive, one server handles traffic while the other waits as a backup and only becomes active if the main server fails.
+
+Each server contains Nginx as the web server, an application server, application files, and a MySQL database. The web server handles HTTP requests and forwards dynamic requests to the application server. The application server runs the website logic. The database stores the website data.
+
+The database uses a Primary-Replica setup. The Primary database handles write operations such as creating, updating, or deleting data. The Replica database copies data from the Primary and can handle read operations. This improves read performance and provides redundancy.
+
+Issues with this infrastructure:
+The load balancer is still a Single Point of Failure because if it fails, users cannot reach the servers. There are also security issues because there is no firewall and no HTTPS, so traffic is not protected. There is no monitoring, so failures, performance problems, or high traffic may not be detected quickly.
