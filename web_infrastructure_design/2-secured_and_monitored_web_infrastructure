@@ -1,0 +1,39 @@
+Diagram:
+https://imgur.com/a/dfFHPzU
+Explanation:
+This infrastructure is a secured and monitored version of a distributed web system.
+
+A user accesses www.foobar.com using HTTPS. The request goes through the Internet and reaches a firewall. The firewall filters incoming traffic and protects the system from unauthorized access.
+
+The request is then handled by a load balancer (HAProxy). The load balancer has an SSL certificate and terminates HTTPS connections. It distributes traffic between two backend servers using a Round Robin algorithm.
+
+Each server is protected by an internal firewall. Inside each server, Nginx acts as the web server, forwarding requests to the application server. The application server processes the logic and interacts with the application code.
+
+Each server also has a monitoring agent installed. These agents collect data such as logs, metrics, and performance information and send it to a monitoring system like Sumologic.
+
+The database is a MySQL Primary-Replica setup. The Primary database handles write operations, while the Replica handles read operations.
+
+Why added components:
+Firewalls are added to protect the infrastructure from attacks and unauthorized access.
+HTTPS is used to encrypt data between the user and the server.
+Monitoring is used to track performance, detect failures, and send alerts.
+
+What firewalls are for:
+Firewalls control incoming and outgoing traffic and block malicious requests.
+
+Why HTTPS:
+HTTPS encrypts communication, protecting sensitive data from interception.
+
+Monitoring purpose:
+Monitoring helps detect issues, track system health, and improve performance.
+
+How monitoring collects data:
+Agents installed on servers collect logs and metrics and send them to a central monitoring system.
+
+Monitoring web server QPS:
+Use monitoring tools to track requests per second, set alerts, and analyze traffic patterns.
+
+Issues:
+SSL termination at the load balancer is a problem because traffic between the load balancer and servers is not encrypted.
+Having only one MySQL server for writes is a risk because it creates a bottleneck and single point of failure.
+Having all components on each server increases complexity and can reduce scalability.
