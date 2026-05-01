@@ -1,0 +1,21 @@
+Diagram:
+https://imgur.com/a/EYXBskj
+
+Explanation:
+This infrastructure is designed to scale the system by separating components and improving availability.
+
+A user connects to www.foobar.com through the Internet. The request is handled by a load balancer cluster (HAProxy), which consists of two load balancers in an Active-Active setup. This improves availability and removes a single point of failure.
+
+The load balancers distribute traffic to a dedicated web server. The web server (Nginx) handles incoming HTTP requests and serves static content or forwards requests to the application server.
+
+The application server processes the business logic and interacts with the application code.
+
+The database is placed on a separate server (MySQL). This allows better performance, scalability, and easier management.
+
+Why added components:
+Separating the web server, application server, and database improves performance and scalability.
+Using two load balancers increases reliability and prevents downtime if one fails.
+
+Application server vs web server:
+The web server (Nginx) handles HTTP requests and serves static files.
+The application server processes logic, executes code, and interacts with the database.
