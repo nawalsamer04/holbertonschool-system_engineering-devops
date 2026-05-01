@@ -1,0 +1,17 @@
+Diagram:
+https://imgur.com/a/V5C1FOO
+Explanation:
+A user wants to access www.foobar.com from their browser. The browser asks DNS to resolve the domain name. The www record is a DNS A record that points www.foobar.com to the server IP address 8.8.8.8.
+
+The server is a physical or virtual machine that hosts all the components needed to serve the website. It contains one web server, one application server, the application files, and one MySQL database.
+
+The web server is Nginx. Its role is to receive HTTP or HTTPS requests from the user’s browser and serve static files or forward dynamic requests to the application server.
+
+The application server runs the backend logic of the website. It processes requests, executes the application code, communicates with the database when needed, and returns dynamic content.
+
+The database is MySQL. Its role is to store persistent data such as users, posts, settings, and other website information.
+
+The user’s computer communicates with the server using HTTP or HTTPS over the internet, usually through TCP/IP.
+
+Issues with this infrastructure:
+This infrastructure has a Single Point of Failure because everything is hosted on one server. If the server goes down, the entire website becomes unavailable. Maintenance can also cause downtime because restarting the web server, application server, or database can interrupt service. It also cannot scale well if traffic increases because all components share the same machine resources.
